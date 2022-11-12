@@ -1,5 +1,4 @@
 import AppDataSource from "../../data-source";
-import { Movies } from "../../entities/movies";
 import { Users } from "../../entities/users";
 import { AppError } from "../../errors";
 
@@ -11,13 +10,13 @@ export default async function listMoviesUserServices(userId: string) {
     relations: { userMovies: true },
   });
 
-  if (!moviesUser) {
+  if (moviesUser.length === 0) {
     throw new AppError("User not found", 404);
   }
 
   const movies = moviesUser.map(movie => movie.userMovies);
 
-  if (!movies) {
+  if (movies[0].length === 0) {
     throw new AppError("Movie not found", 404);
   }
 

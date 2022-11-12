@@ -12,8 +12,8 @@ export default async function listMoviesUserByCategotyService(
     relations: { categoryMovies: true },
   });
 
-  if (!moviesByCategory) {
-    throw new AppError("Movie not found", 404);
+  if (moviesByCategory.length === 0) {
+    throw new AppError("Movie not found on category", 404);
   }
 
   return moviesByCategory;
