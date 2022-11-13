@@ -9,6 +9,18 @@ export default async function createMovieService(
   movie: IMovieRequest,
   userId: string
 ): Promise<IMovie> {
+  let checkReleaseJpg = movie.image.includes(".jpg");
+  let checkReleasePng = movie.image.includes(".png");
+  let checkReleaseJpeg = movie.image.includes(".jpeg");
+
+  if (
+    checkReleaseJpg === false &&
+    checkReleasePng === false &&
+    checkReleaseJpeg === false
+  ) {
+    throw new AppError("Invalid url image");
+  }
+
   const moviesData = AppDataSource.getRepository(Movies);
 
   const userData = AppDataSource.getRepository(Users);
@@ -48,9 +60,9 @@ export default async function createMovieService(
   if (userCategories) {
     const releaseDate = new Date(
       Date.UTC(
-        parseInt(movie.release.split("/")[0]),
-        parseInt(movie.release.split("/")[1]) - 1,
-        parseInt(movie.release.split("/")[2])
+        parseInt(movie.release.split("-")[0]),
+        parseInt(movie.release.split("-")[1]) - 1,
+        parseInt(movie.release.split("-")[2])
       )
     );
 
@@ -79,9 +91,9 @@ export default async function createMovieService(
 
   const releaseDate = new Date(
     Date.UTC(
-      parseInt(movie.release.split("/")[0]),
-      parseInt(movie.release.split("/")[1]) - 1,
-      parseInt(movie.release.split("/")[2])
+      parseInt(movie.release.split("-")[0]),
+      parseInt(movie.release.split("-")[1]) - 1,
+      parseInt(movie.release.split("-")[2])
     )
   );
 
