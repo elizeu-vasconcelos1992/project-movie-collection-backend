@@ -6,12 +6,17 @@ import {
   listMoviesUserController,
   updateMoviesUserController,
 } from "../controllers/movies.controllers";
-import { createUserController } from "../controllers/users.controllers";
+import {
+  createUserController,
+  listUserController,
+} from "../controllers/users.controllers";
 import checkAuthUserMiddleware from "../middlewares/checkAuthUser.middleware";
 
 const userRoutes = Router();
 
 userRoutes.post("", createUserController);
+
+userRoutes.get("/:id", checkAuthUserMiddleware, listUserController);
 
 userRoutes.post("/movies/:id", checkAuthUserMiddleware, createMovieController);
 
