@@ -20,9 +20,9 @@ export default async function updateMovieUserServices(
   if (movie.release) {
     const newDate = new Date(
       Date.UTC(
-        parseInt(movie.release.split("/")[0]),
-        parseInt(movie.release.split("/")[1]) - 1,
-        parseInt(movie.release.split("/")[2])
+        parseInt(movie.release.split("-")[0]),
+        parseInt(movie.release.split("-")[1]) - 1,
+        parseInt(movie.release.split("-")[2])
       )
     );
 
