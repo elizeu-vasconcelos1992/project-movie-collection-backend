@@ -21,6 +21,18 @@ export default async function createMovieService(
     throw new AppError("Invalid url image");
   }
 
+  if (movie.name.length > 50) {
+    throw new AppError("Name must be up to 50 characters");
+  }
+
+  if (movie.image.length > 120) {
+    throw new AppError("Image url must be up to 120 characters");
+  }
+
+  if (movie.sinopse.length > 400) {
+    throw new AppError("Sinopse must be up to 400 characters");
+  }
+
   const moviesData = AppDataSource.getRepository(Movies);
 
   const userData = AppDataSource.getRepository(Users);
