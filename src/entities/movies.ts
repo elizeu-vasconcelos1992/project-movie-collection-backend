@@ -38,6 +38,5 @@ export class Movies {
   user: Users;
 
   @ManyToOne(() => Categories, { eager: true })
-  @Exclude()
   category: Categories;
 }
